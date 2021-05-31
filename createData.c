@@ -47,6 +47,32 @@ void mergeSort(int arr[], int l, int r) {
     }
 }
 
+char *decimal_to_binary(int n) {
+  int c, d, t;
+  char *p;
+
+  t = 0;
+  p = (char*)malloc(32+1);
+
+  if (p == NULL)
+    exit(EXIT_FAILURE);
+
+  for (c = 31 ; c >= 0 ; c--)
+  {
+    d = n >> c;
+
+    if (d & 1)
+      *(p+t) = 1 + '0';
+    else
+      *(p+t) = 0 + '0';
+
+    t++;
+  }
+  *(p+t) = '\0';
+
+  return  p;
+}
+
 void createData(int N, char *fileName) {
     int randArray[N];
     for (int i = 0; i < N; i++)
@@ -61,9 +87,18 @@ void createData(int N, char *fileName) {
         exit(EXIT_FAILURE);
     }
 
-    for (int i = 0; i < N; i++)
-        fprintf(fPtr, "%d\n", randArray[i]);
-
+    for (int i = 0; i < N; i++) {
+        fprintf(fPtr, "%s", decimal_to_binary(randArray[i]));
+    }
     fclose(fPtr);
     printf("Archivo creado")
+}
+
+void main(void) {
+    int N;
+    char name[20];
+    printf("Ingrese nombre del archivo a crear:")
+    scanf("%s", &name);
+    printf("Ingrese la cantidad de elementos para el arreglo: ");
+    int x = scanf("%d", &N);
 }
