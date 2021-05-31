@@ -62,7 +62,7 @@ void createData(int N, char *fileName) {
     }
 
     for (int i = 0; i < N; i++)
-        fprintf(fPtr, "%d", randArray[i]);
+        fprintf(fPtr, "%d\n", randArray[i]);
 
     fclose(fPtr);
     printf("Archivo creado")
