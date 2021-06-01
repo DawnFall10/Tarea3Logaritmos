@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string>
+#include <string.h>
+
 
 void merge(int arr[], int p, int q, int r) {
     int n1 = q - p + 1;
@@ -52,12 +53,12 @@ char *decimal_to_binary(int n) {
   char *p;
 
   t = 0;
-  p = (char*)malloc(32+1);
+  p = (char*)malloc(18+1);
 
   if (p == NULL)
     exit(EXIT_FAILURE);
 
-  for (c = 31 ; c >= 0 ; c--)
+  for (c = 17 ; c >= 0 ; c--)
   {
     d = n >> c;
 
@@ -76,11 +77,16 @@ char *decimal_to_binary(int n) {
 void createData(int N, char *fileName) {
     int randArray[N];
     for (int i = 0; i < N; i++)
-        randArray[i] = rand() % 100;
+        randArray[i] = rand() % 200000;
     mergeSort(randArray, 0, N - 1);
 
     FILE* fPtr;
-    fPtr = fopen(fileName + ".txt", "w+");
+    char name[20];
+    char txt[] = ".txt";
+    strcpy(name, fileName);
+    strcat(name, txt);
+    fPtr = fopen(name, "w+");
+    char binario[32];
     if (fPtr == NULL) {
         /* File not created hence exit */
         printf("Unable to create file.\n");
@@ -88,17 +94,19 @@ void createData(int N, char *fileName) {
     }
 
     for (int i = 0; i < N; i++) {
-        fprintf(fPtr, "%s", decimal_to_binary(randArray[i]));
+        strcpy(binario, decimal_to_binary(randArray[i]));
+        fprintf(fPtr, "%s", binario);
     }
     fclose(fPtr);
-    printf("Archivo creado")
+    printf("Archivo creado\n");
 }
 
 void main(void) {
-    int N;
+    long N;
     char name[20];
-    printf("Ingrese nombre del archivo a crear:")
+    printf("Ingrese nombre del archivo a crear:");
     scanf("%s", &name);
     printf("Ingrese la cantidad de elementos para el arreglo: ");
-    int x = scanf("%d", &N);
+    int x = scanf("%ld", &N);
+    createData(N, name);
 }
